@@ -3,22 +3,25 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
-def get_db
-	db = SQLite3::Database.new 'vlogerok.db'
-	db.results_as_hash = true
-	return db
+def init_db
+	@db = SQLite3::Database.new 'vlogerok.db'
+	@db.results_as_hash = true
+end
+
+before do
+	init_db
 end
 
 configure do
-	db = get_db
-	db.execute 'CREATE TABLE IF NOT EXISTS "Posts" 
-		("id" INTEGER PRIMARY KEY AUTOINCREMENT,
-		 "createddate" DATE,
-		 "details" TEXT ) '
-	db.execute 'CREATE TABLE IF NOT EXISTS "Comments"
-		("id" INTEGER PRIMARY KEY AUTOINCREMENT,
-		 "createddate" DATE,
-		 "comment" TEXT )'
+	init_db
+	@db.execute 'CREATE TABLE IF NOT EXISTS Posts
+		(id INTEGER PRIMARY KEY AUTOINCREMENT,
+		 createddate DATE,
+		 details TEXT ) '
+	@db.execute 'CREATE TABLE IF NOT EXISTS Comments
+		(id INTEGER PRIMARY KEY AUTOINCREMENT,
+		 createddate DATE,
+		 comment TEXT ) '
 end
 
 get '/' do
@@ -30,6 +33,11 @@ get '/new' do
 end
 
 post '/new' do
-  	@content = params[:content]
+  	content = params[:content]
 
+
+	if content.length < 1
+		@error = 'Type post text'
+		return erb :new
+	end		
 end
