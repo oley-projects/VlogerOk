@@ -35,6 +35,8 @@ end
 post '/new' do
   	content = params[:content]
 
+  	@db.execute 'insert into Posts (details, createddate)
+				values ( ?, datetime())', [content]
 
 	if content.length < 1
 		@error = 'Type post text'
