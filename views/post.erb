@@ -5,7 +5,18 @@
 <br />
 <p style="font-size: 80%" align="right"> Added at <%= @row['created_date'] %></p>
 <br />
+
 <h4>Comments:</h4>
+<br />
+
+<% @comments.each do |comment| %>
+	<hr />
+	<p><%= comment['comment'] %></p>
+	<p style="font-size: 80%" align="right"> Added at <%= comment['created_date'] %></p>
+<% end %>
+<hr />
+<br />
+
 <form action="/post-<%= @row['id'] %>" method="POST" role="form">
 	<textarea name="content" class="form-control" rows="7" placeholder="Write comment text here"></textarea>
 	<br />

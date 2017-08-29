@@ -52,7 +52,9 @@ get '/post-:post_id' do
 	post_id = params[:post_id]
 	post_details = @db.execute 'select * from Posts where id = ?', [post_id]
 	@row = post_details[0]
+	@comments = @db.execute 'select * from Comments where post_id = ? order by id', [post_id]
 	erb :post
+
 end
 
 post '/post-:post_id' do
