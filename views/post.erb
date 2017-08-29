@@ -3,7 +3,7 @@
 
 <p> <%= @row['details'] %></p>
 <br />
-<p style="font-size: 80%" align="right"> Added at <%= @row['created_date'] %></p>
+<p style="font-size: 80%; color: #777" align="right"> Added at <%= @row['created_date'] %></p>
 <br />
 
 <h4>Comments:</h4>
@@ -12,7 +12,7 @@
 <% @comments.each do |comment| %>
 	<hr />
 	<p><%= comment['comment'] %></p>
-	<p style="font-size: 80%" align="right"> Added at <%= comment['created_date'] %></p>
+	<p style="font-size: 75%; color: #999" align="right"><%= comment['created_date'] %></p>
 <% end %>
 <hr />
 <br />
