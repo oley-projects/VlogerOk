@@ -16,16 +16,18 @@ configure do
 	init_db
 	@db.execute 'CREATE TABLE IF NOT EXISTS Posts
 		(id INTEGER PRIMARY KEY AUTOINCREMENT,
-		 createddate DATE,
+		 created_date DATE,
 		 details TEXT ) '
 	@db.execute 'CREATE TABLE IF NOT EXISTS Comments
 		(id INTEGER PRIMARY KEY AUTOINCREMENT,
-		 createddate DATE,
-		 comment TEXT ) '
+		 created_date DATE,
+		 comment TEXT,
+		 post_id INTEGER) '
 end
 
 get '/' do
-	erb "Hello!"
+	@post_list = @db.execute 'select * from Posts order by id desc'
+	erb :index
 end
 
 get '/new' do
@@ -35,7 +37,7 @@ end
 post '/new' do
   	content = params[:content]
 
-  	@db.execute 'insert into Posts (details, createddate)
+  	@db.execute 'insert into Posts (details, created_date)
 				values ( ?, datetime())', [content]
 
 	if content.length < 1

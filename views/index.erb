@@ -1,0 +1,9 @@
+<h3>Posts:</h3>
+<br />
+<% @post_list.each do |post| %>
+	<p> <%= post['details'] %></p>
+	<br />
+	<p> Added at <%= post['created_date'] %></p>
+	<hr />
+
+<% end %>
