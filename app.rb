@@ -43,5 +43,7 @@ post '/new' do
 	if content.length < 1
 		@error = 'Type post text'
 		return erb :new
-	end		
+	end	
+
+	redirect to('/')	
 end

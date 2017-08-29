@@ -3,7 +3,10 @@
 <% @post_list.each do |post| %>
 	<p> <%= post['details'] %></p>
 	<br />
-	<p> Added at <%= post['created_date'] %></p>
+	<a href="post-<%=post['id']%>">Comments</a>
+	<br />
+	<p style="font-size: 80%" align="right"> Added at <%= post['created_date'] %></p>
+
 	<hr />
 
 <% end %>
