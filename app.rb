@@ -54,3 +54,11 @@ get '/post-:post_id' do
 	@row = post_details[0]
 	erb :post
 end
+
+post '/post-:post_id' do
+	post_id = params[:post_id]
+	content = params[:content]
+	@db.execute 'insert into Comments (comment, created_date, post_id)
+				values ( ?, datetime(), ?)', [content, post_id]
+	redirect to('/post-' + post_id)
+end
