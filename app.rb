@@ -22,7 +22,7 @@ configure do
 		(id INTEGER PRIMARY KEY AUTOINCREMENT,
 		 created_date DATE,
 		 comment TEXT,
-		 post_id INTEGER) '
+		 post_id INTEGER ) '
 end
 
 get '/' do
@@ -35,21 +35,29 @@ get '/new' do
 end
 
 post '/new' do
+  	username = params[:username]
   	content = params[:content]
 
   	@db.execute 'insert into Posts (details, created_date)
 				values ( ?, datetime())', [content]
 
-	if content.length < 1
-		@error = 'Type post text'
+	hh = { 	:username => 'Enter your Name',
+			:content => 'Enter post content' }
+	@error = hh.select {|key,_| params[key] == ""}.values.join(". ")
+	if @error != ''
 		return erb :new
-	end	
+	end
+	#if content.length < 1
+	#	@error = 'Type post text'
+	#	return erb :new
+	#end	
 
 	redirect to('/')	
 end
 
 get '/post-:post_id' do
 	post_id = params[:post_id]
+
 	post_details = @db.execute 'select * from Posts where id = ?', [post_id]
 	@row = post_details[0]
 	@comments = @db.execute 'select * from Comments where post_id = ? order by id', [post_id]
@@ -60,7 +68,14 @@ end
 post '/post-:post_id' do
 	post_id = params[:post_id]
 	content = params[:content]
+
 	@db.execute 'insert into Comments (comment, created_date, post_id)
 				values ( ?, datetime(), ?)', [content, post_id]
+
+	#if content.length < 1
+	#	@error = 'Type comment'
+	#	return erb :post
+	#end	
+
 	redirect to('/post-' + post_id)
 end
