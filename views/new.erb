@@ -1,7 +1,15 @@
 <h2>New post</h2>
 <br />
 <form action="/new" method="POST" role="form">
-	<textarea name="content" class="form-control" rows="7" placeholder="Write post text here"></textarea>
+	<div class="form-group">
+		<label for="input-name">Enter your Name:</label>
+		<input name="username" type="text" class="form-control" id="input-name" placeholder="Enter your Name">
+	</div>
+	<br />
+	<div class="form-group">
+		<label for="input-content">Your post:</label>
+		<textarea name="content" class="form-control" id="input-content" rows="7" placeholder="Write post text here"></textarea>
+	</div>
 	<br />
 	<button type="submit" class="btn btn-success">Submit</button>
 </form>
