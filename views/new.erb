@@ -3,12 +3,12 @@
 <form action="/new" method="POST" role="form">
 	<div class="form-group">
 		<label for="input-name">Enter your Name:</label>
-		<input name="username" type="text" class="form-control" id="input-name" placeholder="Enter your Name">
+		<input name="username" type="text" class="form-control" id="input-name" placeholder="Enter your Name" value="<%=@username%>">
 	</div>
 	<br />
 	<div class="form-group">
 		<label for="input-content">Your post:</label>
-		<textarea name="content" class="form-control" id="input-content" rows="7" placeholder="Write post text here"></textarea>
+		<textarea name="content" class="form-control" id="input-content" rows="7" placeholder="Write post text here" value="<%=@content%>"></textarea>
 	</div>
 	<br />
 	<button type="submit" class="btn btn-success">Submit</button>
